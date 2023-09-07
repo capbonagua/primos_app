@@ -160,7 +160,7 @@ class _PrintPageState extends State<PrintPage> {
           width: 2,
           styles: PosStyles(align: PosAlign.right)),
     ]);
-    for (final order in widget.orderDetails) {
+    /*for (final order in widget.orderDetails) {
       bytes += ticket.row([
         PosColumn(text: order['productName'], width: 5),
         PosColumn(text: order['quantity'] as String, width: 1),
@@ -176,7 +176,7 @@ class _PrintPageState extends State<PrintPage> {
             width: 2,
             styles: PosStyles(align: PosAlign.right)),
       ]);
-    }
+    }*/
     bytes += ticket.hr();
 
     if (widget.receiptNum == null) {
