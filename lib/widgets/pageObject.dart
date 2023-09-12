@@ -6,6 +6,7 @@ import 'package:primos_app/pages/admin/employee.dart';
 import 'package:primos_app/pages/admin/salesReport.dart';
 import 'package:primos_app/pages/admin/table.dart';
 import 'package:primos_app/pages/cashier/orders.dart';
+import 'package:primos_app/pages/cashier/vatForm.dart';
 import 'package:primos_app/pages/kitchen/kitchen.dart';
 
 import 'package:primos_app/pages/waiter/tables.dart';
@@ -43,6 +44,11 @@ List<SideMenuPage> adminPages = [
       name: "Employee",
       page: EmployeePage(),
       icon: Icon(Icons.account_circle_rounded)),
+  SideMenuPage(
+    name: "Change VAT %",
+    page: VatForm(),
+    icon: Icon(Icons.edit),
+  ),
 ];
 
 // END OF ADMIN PAGES

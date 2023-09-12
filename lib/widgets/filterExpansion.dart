@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:primos_app/providers/filter/isDateRange_provider.dart';
 import 'package:primos_app/providers/filter/isSingleDate_provider.dart';
 import 'package:primos_app/widgets/styledButton.dart';
@@ -26,12 +27,6 @@ class FilterExpansion extends ConsumerWidget {
       // selectedDate2.setDate(date);
       ref.read(isReset.notifier).state = false;
       ref.read(selectedDate2Provider.notifier).state = date;
-    }
-
-    void onDateSelected3(DateTime? date) {
-      // selectedDate3.setDate(date);
-      ref.read(isReset.notifier).state = false;
-      ref.read(selectedDate3Provider.notifier).state = date;
     }
 
     // bool isExpanded = false;
@@ -75,13 +70,6 @@ class FilterExpansion extends ConsumerWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      const Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text("Filter to specific date range:"),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
                       Row(
                         //DATE RANGE PICKER
                         children: [
@@ -110,83 +98,58 @@ class FilterExpansion extends ConsumerWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      SizedBox(
-                        width: double.infinity,
-                        child: StyledButton(
-                            noShadow: true,
-                            btnText: "FILTER",
-                            onClick: () {
-                              ref.read(isSingleDateProvider.notifier).state =
-                                  false;
-                              ref.read(isDateRangeProvider.notifier).state =
-                                  true;
-                              // TODO FILTER BY DATE RANGE API
-                            }),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      const Align(
-                        //FILTER BY SINGLE DATE
-                        alignment: Alignment.centerLeft,
-                        child: Text("Filter to a single date:"),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
                       Row(
                         children: [
                           Expanded(
                             flex: 1,
-                            child: StyledDatepicker(
-                                onDateSelected: onDateSelected3,
-                                isReset: ref.watch(isReset)),
+                            child: StyledButton(
+                                noShadow: true,
+                                btnText: "RESET DATE",
+                                onClick: () {
+                                  ref
+                                      .read(isSingleDateProvider.notifier)
+                                      .state = false;
+                                  ref.read(isDateRangeProvider.notifier).state =
+                                      false;
+
+                                  ref
+                                      .read(selectedDate1Provider.notifier)
+                                      .state = null;
+                                  ref
+                                      .read(selectedDate2Provider.notifier)
+                                      .state = null;
+                                  ref.read(isReset.notifier).state = true;
+                                }),
                           ),
                           const SizedBox(
-                            width: 10,
+                            width: 15,
                           ),
                           Expanded(
                             flex: 1,
                             child: StyledButton(
-                              noShadow: true,
-                              btnText: "FILTER",
-                              onClick: () {
-                                ref.read(isDateRangeProvider.notifier).state =
-                                    false;
-                                ref.read(isSingleDateProvider.notifier).state =
-                                    true;
-                                //TODO FILTER BY SINGLE DATE API
-                              },
-                            ),
-                          )
+                                noShadow: true,
+                                btnText: "FILTER",
+                                onClick: () {
+                                  if (ref.watch(selectedDate1Provider) ==
+                                          null ||
+                                      ref.watch(selectedDate2Provider) ==
+                                          null) {
+                                    Fluttertoast.showToast(
+                                      msg: "Please select a date",
+                                      gravity: ToastGravity.TOP,
+                                    );
+                                  } else {
+                                    ref
+                                        .read(isDateRangeProvider.notifier)
+                                        .state = true;
+                                  }
+                                }),
+                          ),
                         ],
                       ),
                       const SizedBox(
-                        height: 20,
-                      ),
-                      SizedBox(
-                        width: double.infinity,
-                        child: StyledButton(
-                            noShadow: true,
-                            btnText: "RESET DATE",
-                            onClick: () {
-                              ref.read(isSingleDateProvider.notifier).state =
-                                  false;
-                              ref.read(isDateRangeProvider.notifier).state =
-                                  false;
-
-                              ref.read(selectedDate1Provider.notifier).state =
-                                  null;
-                              ref.read(selectedDate2Provider.notifier).state =
-                                  null;
-                              ref.read(selectedDate3Provider.notifier).state =
-                                  null;
-                              ref.read(isReset.notifier).state = true;
-                            }),
-                      ),
-                      const SizedBox(
                         height: 10,
-                      )
+                      ),
                     ],
                   ),
                 ),
