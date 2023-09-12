@@ -176,7 +176,7 @@ class _PrintPageState extends State<PrintPage> {
             width: 2,
             styles: PosStyles(align: PosAlign.right)),
       ]);
-    }*/
+    }
     bytes += ticket.hr();
 
     if (widget.receiptNum == null) {
